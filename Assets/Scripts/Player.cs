@@ -58,6 +58,7 @@ public class Player : MonoBehaviour
 
         rotX = Mathf.Clamp(rotX, -90f, 90f);
 
+        //Camera.main.transform.localEulerAngles = new Vector3(rotX, rotY, 0);
         transform.localEulerAngles = new Vector3(0, rotY, 0);
         Camera.main.transform.localEulerAngles = new Vector3(rotX, 0, 0);
     }

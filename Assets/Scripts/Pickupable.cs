@@ -10,16 +10,19 @@ public abstract class Pickupable : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if()
+        if (decayTime > 0)
+        {
+            Destroy(gameObject, decayTime);
+        }
     }
     // Update is called once per frame
     void Update()
     {
-        
+        Rotate();
     }
     protected void Rotate()
     {
-        transform.Rotate(rotScl * rotSpeed * Time.deltaTime);
+        transform.Rotate(rotationScale * rotationSpeed * Time.deltaTime);
     }
 
     void OnTriggerEnter(Collider col)
