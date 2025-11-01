@@ -1,0 +1,2 @@
+LAYER
+idx name	coll		¬coll
