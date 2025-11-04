@@ -10,7 +10,10 @@ public class Player : MonoBehaviour
     public float jumpForce=5f;
     public int maxJumps=1;
     int jumps=1;
+    float airborneY=0f;
     Rigidbody rb;
+    Menu menu;
+    public GameObject fireplace;
 
 
 
@@ -19,8 +22,10 @@ public class Player : MonoBehaviour
     {
         if(rb==null){
             rb=GetComponent<Rigidbody>();
+            menu=FindAnyObjectByType<Menu>();
         }
         ToggleCamera(); //set to 1P initially
+        airborneY=transform.position.y;
     }
     void Update()
     {
@@ -28,11 +33,14 @@ public class Player : MonoBehaviour
             Move();
             Look();
             if(Input.GetKeyDown(KeyCode.Space) && jumps>0){
-            Jump();
+                Jump();
             }
         }
         if(Input.GetKeyDown(KeyCode.Mouse2)){
             ToggleCamera();
+        }
+        if(Input.GetKeyDown(KeyCode.G)){
+            Instantiate(fireplace, transform.position, transform.rotation);
         }
     }
 
@@ -86,7 +94,15 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter(Collision col){
         if(col.gameObject.CompareTag("Floor")){
+            if((transform.position.y-airborneY)<=-30f){
+                menu.Death();
+            }
             jumps=maxJumps;
+        }
+    }
+    void OnCollisionExit(Collision col){
+        if(col.gameObject.CompareTag("Floor")){
+            airborneY=transform.position.y;
         }
     }
 }

@@ -6,7 +6,7 @@ public class UIMsg : MonoBehaviour
     public TMP_Text message;
     public float lifetime = 5f;
     float cleartime;
-    bool canClear=true;
+    bool canClear = true;
 
 
 

@@ -62,7 +62,7 @@ public class Thermo : MonoBehaviour
     }
     void UpdateThermoUI(){
         HPBar.fillAmount = (float)HP/maxHP;
-        Debug.Log("div is:" + (float)HP/maxHP);
+        //Debug.Log("div is:" + (float)HP/maxHP);
         HPTx.text = "" + HP + "/" + maxHP;
         light.colorTemperature = 18000-(HP*5);
     }

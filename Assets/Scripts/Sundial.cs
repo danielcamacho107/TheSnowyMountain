@@ -5,7 +5,7 @@ public class Sundial : MonoBehaviour
     public float cycleDuration = 240f; //4 mins
     float tickCD;
     float tickICD=0f;
-    Vector3 rotation=new Vector3(0,0,1);
+    public Vector3 rotation=new Vector3(0,0,1);
     Thermo thermo;
     bool isNight=false;
     public int nightColdScale=3;
@@ -15,7 +15,7 @@ public class Sundial : MonoBehaviour
     //execution
     void Start()
     {
-        tickCD=cycleDuration/360;
+        tickCD=cycleDuration/(360/rotation.z);
         if(thermo==null){
             thermo=FindAnyObjectByType<Thermo>();
         }
