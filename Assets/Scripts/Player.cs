@@ -12,11 +12,9 @@ public class Player : MonoBehaviour
     int jumps=1;
     float airborneY=0f;
     Rigidbody rb;
-    Animator animator;
     Menu menu;
     public GameObject fireplace;
-    bool isRunning=false;
-
+    
 
 
     //execution
@@ -25,7 +23,6 @@ public class Player : MonoBehaviour
         if(rb==null){
             rb=GetComponent<Rigidbody>();
             menu=FindAnyObjectByType<Menu>();
-            animator=GetComponent<Animator>();
         }
         ToggleCamera(); //set to 1P initially
         airborneY=transform.position.y;
@@ -37,6 +34,7 @@ public class Player : MonoBehaviour
             Look();
             if(Input.GetKeyDown(KeyCode.Space) && jumps>0){
                 Jump();
+                isJumping=true;
             }
         }
         if(Input.GetKeyDown(KeyCode.Mouse2)){
@@ -53,14 +51,15 @@ public class Player : MonoBehaviour
     }
 
     //movement
+    public float moveX;
+    public float moveZ;
+    public bool isRunning = false;
+    public bool isJumping = false;
     void Move(){
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
+        moveX = Input.GetAxis("Horizontal");
+        moveZ = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(moveX, 0, moveZ);
         transform.Translate(movement*moveSpeed*Time.deltaTime);
-        animator.SetFloat("SpeedX", moveX*moveSpeed*Time.deltaTime);
-        animator.SetFloat("SpeedZ", moveZ*moveSpeed*Time.deltaTime);
-        animator.SetBool("isRunning", isRunning);
         if(!cameraIs1P){
             Vector3 rotation = new Vector3(0, 1, 0);
             if(Input.GetKey(KeyCode.E)){
@@ -109,6 +108,7 @@ public class Player : MonoBehaviour
                 menu.Death();
             }
             jumps=maxJumps;
+            isJumping = false;
         }
     }
     void OnCollisionExit(Collision col){
